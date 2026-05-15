@@ -66,9 +66,9 @@ public class Interfas {
         
         // --- Gran X Roja (Reducida) ---
         // Dibuja el primer palo de la cruz inclinándolo 45 grados (0.785 radianes)
-        renderer.dibujar(0.0f, 0.20f, 0, 0, 0.08f, 0.3f, 0.785f, 0.9f, 0.1f, 0.1f); 
+        // renderer.dibujar(0.0f, 0.20f, 0, 0, 0.08f, 0.3f, 0.785f, 0.9f, 0.1f, 0.1f); 
         // Dibuja el segundo palo inclinándolo -45 grados para formar la 'X'
-        renderer.dibujar(0.0f, 0.20f, 0, 0, 0.08f, 0.3f, -0.785f, 0.9f, 0.1f, 0.1f); 
+        // renderer.dibujar(0.0f, 0.20f, 0, 0, 0.08f, 0.3f, -0.785f, 0.9f, 0.1f, 0.1f); 
 
         // --- Puntuaciones Finales ---
         // Dibuja el ícono del Jugador 1 (Amarillo) en la mitad superior del panel
@@ -229,8 +229,9 @@ public class Interfas {
                 renderer.dibujar(x, y, 0, h, w + t, t, 0, r, g, b); // Techo
                 renderer.dibujar(x, y, w/2, h/2, t, h + t, 0, r, g, b); // Cierre derecho de la cabeza
                 renderer.dibujar(x, y, 0, 0, w + t, t, 0, r, g, b); // Base de la cabeza (forma la 'P')
-                // Pierna diagonal de la R: usamos un ángulo de inclinación (-0.4 radianes)
-                renderer.dibujar(x, y, w/4, -h/2, t, h * 1.2f, -0.4f, r, g, b); 
+                // Pierna simulada en diagonal usando bloques escalonados
+                renderer.dibujar(x, y, w/4, -h/4, t, h/2 + t, 0, r, g, b); // Mitad superior
+                renderer.dibujar(x, y, w/2, -h*0.75f, t, h/2 + t, 0, r, g, b); // Mitad inferior
                 break;
         }
     }

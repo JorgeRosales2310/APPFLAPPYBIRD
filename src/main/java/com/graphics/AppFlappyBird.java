@@ -63,6 +63,7 @@ public class AppFlappyBird {
         input = new InputManager(window);
         tuberias = new ArrayList<>();
         random = new Random();
+        SoundManager.init(); // Inicializar el sistema de audio de forma procedimental
     }
 
     private void resetGame() {
@@ -124,8 +125,10 @@ public class AppFlappyBird {
             // Verifica si el tubo cruzó al pájaro para dar un punto
             if (t.x + (TUBERIA_ANCHO / 2) < BIRD_X && !t.puntuada) {
                 t.puntuada = true;
-                if (pajaro1.vivo) pajaro1.puntaje++;
-                if (pajaro2.vivo) pajaro2.puntaje++;
+                boolean puntoAnotado = false;
+                if (pajaro1.vivo) { pajaro1.puntaje++; puntoAnotado = true; }
+                if (pajaro2.vivo) { pajaro2.puntaje++; puntoAnotado = true; }
+                if (puntoAnotado) SoundManager.playPunto(); // Reproduce sonido al cruzar
             }
 
             // Verifica colisiones de cada pájaro vivo contra el tubo actual

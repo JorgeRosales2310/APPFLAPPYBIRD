@@ -29,10 +29,14 @@ public class Pajaro {
     // Se llama cuando el usuario presiona la tecla de este pájaro
     public void saltar() {
         velY = IMPULSO_SALTO; // Anula la caída e impulsa hacia arriba
+        SoundManager.playSalto(); // Efecto de salto
     }
 
     public void morir() {
-        vivo = false;
+        if (vivo) {
+            vivo = false;
+            SoundManager.playGolpe(); // Efecto de impacto/muerte
+        }
     }
 
     // Calcula la nueva posición basada en la física de la gravedad

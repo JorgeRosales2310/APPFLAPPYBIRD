@@ -13,7 +13,7 @@ public class Renderer {
     private int vao, vbo, programa; // IDs para el cuadrado base (Quad)
     private int vaoTri, vboTri; // IDs para el triángulo base
     // Ubicaciones de las variables dentro del Shader (Uniforms)
-    private int uPosBase, uLocalOffset, uScale, uRotation, uColor; 
+    private int uPosBase, uLocalOffset, uScale, uRotation, uColor;
 
     public Renderer() {
         crearShaders(); // Compila el mini-programa que pinta los píxeles
@@ -59,7 +59,8 @@ public class Renderer {
         GL20.glAttachShader(programa, fShader);
         GL20.glLinkProgram(programa);
 
-        // Obtiene las direcciones de las variables para luego mandarles datos desde Java
+        // Obtiene las direcciones de las variables para luego mandarles datos desde
+        // Java
         uPosBase = GL20.glGetUniformLocation(programa, "uPosBase");
         uLocalOffset = GL20.glGetUniformLocation(programa, "uLocalOffset");
         uScale = GL20.glGetUniformLocation(programa, "uScale");
@@ -92,9 +93,9 @@ public class Renderer {
     private void crearTrianguloBase() {
         // Los 3 vértices que forman un triángulo con base plana
         float[] vertices = {
-                0.0f, 0.5f, 0,   // Arriba al centro
+                0.0f, 0.5f, 0, // Arriba al centro
                 -0.5f, -0.5f, 0, // Abajo a la izquierda
-                0.5f, -0.5f, 0   // Abajo a la derecha
+                0.5f, -0.5f, 0 // Abajo a la derecha
         };
         // Guarda esta figura (triángulo) en otra zona de memoria
         vaoTri = GL30.glGenVertexArrays();
@@ -128,7 +129,8 @@ public class Renderer {
     }
 
     // Método general para dibujar un triángulo (Ideal para montañas)
-    public void dibujarTriangulo(float baseX, float baseY, float locX, float locY, float scaleX, float scaleY, float rot,
+    public void dibujarTriangulo(float baseX, float baseY, float locX, float locY, float scaleX, float scaleY,
+            float rot,
             float r, float g, float b) {
         GL30.glBindVertexArray(vaoTri); // Cambiamos al molde del triángulo
         GL20.glUniform2f(uPosBase, baseX, baseY);
@@ -150,44 +152,61 @@ public class Renderer {
         // Simula el aleteo usando la función Seno con el tiempo real del juego
         float aleteo = p.vivo ? (float) Math.sin(GLFW.glfwGetTime() * 20f) * 0.03f : 0f;
 
+        // Calculamos el seno y coseno para rotar los offsets locales en Java
+        float c = (float) Math.cos(rot);
+        float s = (float) Math.sin(rot);
+
+        // Cola (Triángulo en la parte trasera apuntando a la izquierda)
+        float tx = -0.06f * c - (-0.01f) * s;
+        float ty = -0.06f * s + (-0.01f) * c;
+        dibujarTriangulo(p.x, p.y, tx, ty, 0.05f, 0.05f, rot + 1.5708f, p.r * 0.8f, p.g * 0.8f, p.b * 0.8f);
+
         // Cuerpo (Borde negro y relleno de color)
-        dibujar(p.x, p.y, 0, 0, 0.11f, 0.09f, rot, 0.1f, 0.1f, 0.1f); 
-        dibujar(p.x, p.y, 0, 0, 0.10f, 0.08f, rot, p.r, p.g, p.b); 
+        dibujar(p.x, p.y, 0, 0, 0.11f, 0.09f, rot, 0.1f, 0.1f, 0.1f);
+        dibujar(p.x, p.y, 0, 0, 0.10f, 0.08f, rot, p.r, p.g, p.b);
 
         // Ala (Blanca, se mueve arriba y abajo con la variable 'aleteo')
-        dibujar(p.x, p.y, -0.02f, aleteo, 0.05f, 0.04f, rot, 1.0f, 1.0f, 1.0f);
+        float ax = -0.02f * c - aleteo * s;
+        float ay = -0.02f * s + aleteo * c;
+        dibujar(p.x, p.y, ax, ay, 0.05f, 0.04f, rot, 1.0f, 1.0f, 1.0f);
 
         // Ojo y pupila negra
-        dibujar(p.x, p.y, 0.03f, 0.02f, 0.035f, 0.035f, rot, 1.0f, 1.0f, 1.0f); 
-        dibujar(p.x, p.y, 0.04f, 0.02f, 0.015f, 0.015f, rot, 0.0f, 0.0f, 0.0f); 
+        float ox = 0.03f * c - 0.02f * s;
+        float oy = 0.03f * s + 0.02f * c;
+        dibujar(p.x, p.y, ox, oy, 0.035f, 0.035f, rot, 1.0f, 1.0f, 1.0f);
+        float px_ = 0.04f * c - 0.02f * s;
+        float py_ = 0.04f * s + 0.02f * c;
+        dibujar(p.x, p.y, px_, py_, 0.015f, 0.015f, rot, 0.0f, 0.0f, 0.0f);
 
-        // Pico naranja asomando
-        dibujar(p.x, p.y, 0.06f, -0.01f, 0.05f, 0.03f, rot, 1.0f, 0.5f, 0.0f);
+        // Pico naranja asomando (Triángulo apuntando a la derecha)
+        float bx = 0.06f * c - (-0.01f) * s;
+        float by = 0.06f * s + (-0.01f) * c;
+        dibujarTriangulo(p.x, p.y, bx, by, 0.04f, 0.04f, rot - 1.5708f, 1.0f, 0.5f, 0.0f);
     }
 
     public void dibujarNube(float x, float y) {
         // Nube esponjosa construida pegando varios cuadrados blancos descentrados
         dibujar(x, y, 0, 0, 0.2f, 0.1f, 0, 1.0f, 1.0f, 1.0f); // Centro
-        dibujar(x - 0.08f, y - 0.02f, 0, 0, 0.15f, 0.08f, 0, 1.0f, 1.0f, 1.0f); // Izquierda
+        dibujar(x - 0.08f, y - 0.02f, 0, 0, 0.15f, 0.08f, 0, 1.0f, 1.0f, 1.0f); // Izquierda 
         dibujar(x + 0.08f, y - 0.02f, 0, 0, 0.15f, 0.08f, 0, 1.0f, 1.0f, 1.0f); // Derecha
         dibujar(x - 0.04f, y + 0.04f, 0, 0, 0.12f, 0.08f, 0, 1.0f, 1.0f, 1.0f); // Arriba Izquierda
-        dibujar(x + 0.05f, y + 0.03f, 0, 0, 0.1f, 0.08f, 0, 1.0f, 1.0f, 1.0f); // Arriba Derecha
+        dibujar(x + 0.05f, y + 0.03f, 0, 0, 0.1f, 0.08f, 0, 1.0f, 1.0f, 1.0f); // Arriba derecha
     }
 
     public void dibujarSol(float x, float y) {
         // Sol elaborado con rayos que giran
         float rayR = 1.0f, rayG = 0.8f, rayB = 0.0f;
         float coreR = 1.0f, coreG = 0.95f, coreB = 0.2f;
-        
+
         float time = (float) GLFW.glfwGetTime();
         float rot = time * 0.5f; // Velocidad de rotación constante
-        
+
         // Rayos (4 líneas que cruzan el sol rotando)
         dibujar(x, y, 0, 0, 0.35f, 0.03f, rot, rayR, rayG, rayB);
         dibujar(x, y, 0, 0, 0.35f, 0.03f, rot + 1.5708f, rayR, rayG, rayB);
         dibujar(x, y, 0, 0, 0.35f, 0.03f, rot + 0.7854f, rayR, rayG, rayB);
         dibujar(x, y, 0, 0, 0.35f, 0.03f, rot - 0.7854f, rayR, rayG, rayB);
-        
+
         // Núcleo central (creado superponiendo dos cuadrados para formar un octágono)
         dibujar(x, y, 0, 0, 0.18f, 0.18f, 0, coreR, coreG, coreB);
         dibujar(x, y, 0, 0, 0.18f, 0.18f, 0.7854f, coreR, coreG, coreB);
@@ -195,13 +214,12 @@ public class Renderer {
 
     public void dibujarMontana(float x, float y, float tamano, float r, float g, float b) {
         float width = tamano * 1.5f;
-        float height = tamano * 1.2f;
-        
+        float height = tamano; // Faltaba declarar la variable height que se usaba más abajo
+
         // Borde negro: un triángulo un poco más grande situado detrás
         float borde = 0.04f;
         dibujarTriangulo(x, y - borde/2, 0, 0, width + borde*1.5f, height + borde, 0, 0.0f, 0.0f, 0.0f);
-
-        // Base de la montaña: el triángulo principal del color deseado
+        
         dibujarTriangulo(x, y, 0, 0, width, height, 0, r, g, b);
         
         // Pico nevado: un triángulo blanco en la parte superior
@@ -209,21 +227,21 @@ public class Renderer {
         float widthNieve = width * 0.35f;
         float offsetY = (height - heightNieve) / 2.0f; // Sube la nieve a la cima
         dibujarTriangulo(x, y + offsetY, 0, 0, widthNieve, heightNieve, 0, 0.98f, 0.98f, 1.0f);
-        
-        // Nieve escurriendo: 3 Triángulos pequeños apuntando hacia abajo (-180 grados o 3.14159 rad)
+
         float dripW = widthNieve * 0.33f;
         float dripH = heightNieve * 0.5f;
         float dripY = y + offsetY - heightNieve / 2.0f - dripH / 2.0f + 0.005f; 
         
         dibujarTriangulo(x - dripW, dripY, 0, 0, dripW, dripH, 3.14159f, 0.98f, 0.98f, 1.0f); // Izquierda
-        dibujarTriangulo(x, dripY, 0, 0, dripW, dripH, 3.14159f, 0.98f, 0.98f, 1.0f); // Centro
-        dibujarTriangulo(x + dripW, dripY, 0, 0, dripW, dripH, 3.14159f, 0.98f, 0.98f, 1.0f); // Derecha
+        dibujarTriangulo(x, dripY, 0, 0, dripW, dripH, 3.14159f, 0.98f, 0.98f, 1.0f); // Centro/Derecha
     }
+        
 
     // Libera los recursos de OpenGL al salir
     public void limpiar() {
         GL30.glDeleteVertexArrays(vao);
-        GL15.glDeleteBuffers(vbo);
+
         GL20.glDeleteProgram(programa);
+        //
     }
 }
