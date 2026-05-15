@@ -216,9 +216,9 @@ public class Renderer {
         float width = tamano * 1.5f;
         float height = tamano; // Faltaba declarar la variable height que se usaba más abajo
 
-        // Borde negro: un triángulo un poco más grande situado detrás
+        // Borde negro: un triángulo más grande centrado para que sobresalga en todas las puntas (incluyendo la cima)
         float borde = 0.04f;
-        dibujarTriangulo(x, y - borde/2, 0, 0, width + borde*1.5f, height + borde, 0, 0.0f, 0.0f, 0.0f);
+        dibujarTriangulo(x, y - borde/4, 0, 0, width + borde*2.0f, height + borde*1.5f, 0, 0.0f, 0.0f, 0.0f);
         
         dibujarTriangulo(x, y, 0, 0, width, height, 0, r, g, b);
         
@@ -233,7 +233,8 @@ public class Renderer {
         float dripY = y + offsetY - heightNieve / 2.0f - dripH / 2.0f + 0.005f; 
         
         dibujarTriangulo(x - dripW, dripY, 0, 0, dripW, dripH, 3.14159f, 0.98f, 0.98f, 1.0f); // Izquierda
-        dibujarTriangulo(x, dripY, 0, 0, dripW, dripH, 3.14159f, 0.98f, 0.98f, 1.0f); // Centro/Derecha
+        dibujarTriangulo(x, dripY, 0, 0, dripW, dripH, 3.14159f, 0.98f, 0.98f, 1.0f); // Centro
+        dibujarTriangulo(x + dripW, dripY, 0, 0, dripW, dripH, 3.14159f, 0.98f, 0.98f, 1.0f); // Derecha
     }
         
 

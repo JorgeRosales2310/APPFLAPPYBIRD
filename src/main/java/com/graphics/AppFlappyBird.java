@@ -212,8 +212,12 @@ public class AppFlappyBird {
         renderer.dibujar(0, -0.72f, 0, 0, 2.0f, 0.05f, 0, 0.0f, 0.8f, 0.0f); // Pasto superior (línea verde)
 
         // 5. PÁJAROS
-        renderer.dibujarPajaro(pajaro1);
-        renderer.dibujarPajaro(pajaro2);
+        if (pajaro1.vivo) {
+            renderer.dibujarPajaro(pajaro1);
+        }
+        if (pajaro2.vivo) {
+            renderer.dibujarPajaro(pajaro2);
+        }
 
         // 6. UI (User Interface: Textos, Marcadores, y Pantallas finales)
         if (gameOver) {
