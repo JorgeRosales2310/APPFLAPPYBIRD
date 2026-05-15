@@ -1,7 +1,5 @@
 package com.graphics;
 
-import org.lwjgl.glfw.GLFW;
-
 public class Pajaro {
     public float x, y, velY; // Coordenadas y velocidad vertical actual
     public boolean vivo; // Estado del pájaro

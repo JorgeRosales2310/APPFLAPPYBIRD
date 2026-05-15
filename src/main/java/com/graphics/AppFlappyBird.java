@@ -31,10 +31,9 @@ public class AppFlappyBird {
     private List<Tuberia> tuberias; // Lista que guarda las tuberías activas en pantalla
     private Random random; // Generador de números aleatorios para las alturas de tuberías
     
-    // Offsets para el efecto Parallax (movimiento infinito de fondo)
+    // Offsets para el efecto Parallax 
     private float offsetNubes = 0;
     private float offsetMontanas = 0;
-    private float offsetPasto = 0;
 
     // Variables de control del flujo del juego
     private float timerSpawn; // Temporizador para generar nuevas tuberías
@@ -83,18 +82,17 @@ public class AppFlappyBird {
         if (!started || gameOver)
             return; // Si no ha empezado o ya perdieron, no actualiza la física
 
-        // Actualizamos los offsets multiplicando por dt (delta time)
-        // para que la velocidad sea constante sin importar los FPS
+        // Actualiza los offsets multiplicando por dt (delta time)
         offsetNubes -= 0.05f * dt;
         offsetMontanas -= 0.12f * dt; // Las montañas se mueven un poco más rápido que las nubes
 
-        // Si el offset llega a -2.0, lo reiniciamos a 0 para crear el bucle infinito
+        // Si el offset llega a -2.0, se reinicia a 0 para crear el bucle infinito
         if (offsetNubes < -2.0f)
             offsetNubes = 0;
         if (offsetMontanas < -2.0f)
             offsetMontanas = 0;
 
-        // Actualiza la posición Y de ambos pájaros (aplicar gravedad)
+        // Actualiza la posición Y de ambos pájaros
         pajaro1.actualizar(dt);
         pajaro2.actualizar(dt);
 
@@ -284,8 +282,7 @@ public class AppFlappyBird {
         GLFW.glfwDestroyWindow(window);
         GLFW.glfwTerminate();
     }
-
-    // Punto de entrada de toda la aplicación Java
+    
     public static void main(String[] args) {
         new AppFlappyBird().run();
     }

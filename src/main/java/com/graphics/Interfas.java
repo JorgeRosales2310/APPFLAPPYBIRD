@@ -10,14 +10,14 @@ public class Interfas {
         this.renderer = renderer;
     }
 
-    // Método principal para dibujar el HUD (Heads-Up Display) durante el juego
+    // Método principal para dibujar el HUD durante el juego
     public void dibujarHUD(int score1, int score2, int nivel, float progresoNivel) {
-        // Colores base de los paneles superiores (Azul oscuro para que contraste con el cielo)
+        // Colores base de los paneles superiores (Azul oscuro para el contraste con el cielo)
         float rPanel = 0.05f;
         float gPanel = 0.1f;
         float bPanel = 0.2f;
 
-        // --- Panel Jugador 1 (Izquierda) ---
+        // Panel Jugador 1 (Izquierda)
         // Dibuja el fondo del panel izquierdo
         renderer.dibujar(-0.65f, 0.85f, 0, 0, 0.38f, 0.15f, 0, rPanel, gPanel, bPanel);
         // Dibuja el ícono del Pájaro Amarillo (Jugador 1) en el panel
@@ -25,7 +25,7 @@ public class Interfas {
         // Dibuja el puntaje actual del Jugador 1 en color amarillo
         dibujarNumero(score1, -0.55f, 0.85f, 1.2f, 1.0f, 0.9f, 0.2f); 
 
-        // --- Panel Nivel (Centro) ---
+        // Panel Nivel (Centro)
         // Dibuja el fondo del panel central
         renderer.dibujar(0.0f, 0.88f, 0, 0, 0.3f, 0.1f, 0, rPanel, gPanel, bPanel);
         // Dibuja el fondo oscuro de la barra de progreso del nivel
@@ -41,7 +41,7 @@ public class Interfas {
         // Dibuja el número del nivel actual a la derecha de la barra de progreso
         dibujarNumero(nivel, 0.08f, 0.88f, 0.8f, 1.0f, 1.0f, 1.0f);
 
-        // --- Panel Jugador 2 (Derecha) ---
+        // Panel Jugador 2 (Derecha) 
         // Dibuja el fondo del panel derecho
         renderer.dibujar(0.65f, 0.85f, 0, 0, 0.38f, 0.15f, 0, rPanel, gPanel, bPanel);
         // Dibuja el ícono del Pájaro Azul (Jugador 2) en el panel
@@ -56,21 +56,15 @@ public class Interfas {
         // Dibuja un rectángulo negro semi-transparente (alfa = 0.3f) que cubre toda la pantalla
         renderer.dibujar(0, 0, 0, 0, 2.0f, 2.0f, 0, 0, 0, 0.3f);
 
-        // --- Panel principal (Marrón/Rojo oscuro) ---
+        // Panel principal (Marrón/Rojo oscuro)
         // Dibuja el recuadro central grande donde irán los puntajes finales
         renderer.dibujar(0, 0.0f, 0, 0, 1.5f, 1.0f, 0, 0.2f, 0.05f, 0.05f);
 
-        // --- Texto GAME OVER ---
+        // Texto GAME OVER
         // Llama al método custom para dibujar las letras G-A-M-E O-V-E-R en color dorado
         dibujarTexto("GAME OVER", 0.0f, 0.40f, 1.0f, 0.9f, 0.8f, 0.2f); 
-        
-        // --- Gran X Roja (Reducida) ---
-        // Dibuja el primer palo de la cruz inclinándolo 45 grados (0.785 radianes)
-        // renderer.dibujar(0.0f, 0.20f, 0, 0, 0.08f, 0.3f, 0.785f, 0.9f, 0.1f, 0.1f); 
-        // Dibuja el segundo palo inclinándolo -45 grados para formar la 'X'
-        // renderer.dibujar(0.0f, 0.20f, 0, 0, 0.08f, 0.3f, -0.785f, 0.9f, 0.1f, 0.1f); 
 
-        // --- Puntuaciones Finales ---
+        // Puntuaciones Finales
         // Dibuja el ícono del Jugador 1 (Amarillo) en la mitad superior del panel
         dibujarCabezaPajaro(-0.25f, -0.1f, 0.85f, 0.85f, 0.20f);
         // Muestra el puntaje final del Jugador 1
@@ -140,7 +134,7 @@ public class Interfas {
             case 9: segs = new boolean[]{true, true, true, true, false, true, true}; break; // El 9
         }
 
-        // --- Renderizado real de cada segmento encendido usando rectángulos ---
+        //Renderizado de cada segmento encendido usando rectángulos
         
         // Dibuja el segmento superior (Top)
         if(segs[0]) renderer.dibujar(x, y, 0, h, w + t, t, 0, r, g, b);

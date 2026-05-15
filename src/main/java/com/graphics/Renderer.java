@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 public class Renderer {
-    // Variables de OpenGL (Identificadores de memoria para la tarjeta gráfica)
+    // Variables de OpenGL 
     private int vao, vbo, programa; // IDs para el cuadrado base (Quad)
     private int vaoTri, vboTri; // IDs para el triángulo base
     // Ubicaciones de las variables dentro del Shader (Uniforms)
@@ -59,8 +59,7 @@ public class Renderer {
         GL20.glAttachShader(programa, fShader);
         GL20.glLinkProgram(programa);
 
-        // Obtiene las direcciones de las variables para luego mandarles datos desde
-        // Java
+        // Obtiene las direcciones de las variables para luego mandarles datos desde Java
         uPosBase = GL20.glGetUniformLocation(programa, "uPosBase");
         uLocalOffset = GL20.glGetUniformLocation(programa, "uLocalOffset");
         uScale = GL20.glGetUniformLocation(programa, "uScale");
@@ -185,7 +184,7 @@ public class Renderer {
     }
 
     public void dibujarNube(float x, float y) {
-        // Nube esponjosa construida pegando varios cuadrados blancos descentrados
+        // Nube construida pegando varios cuadrados blancos descentrados
         dibujar(x, y, 0, 0, 0.2f, 0.1f, 0, 1.0f, 1.0f, 1.0f); // Centro
         dibujar(x - 0.08f, y - 0.02f, 0, 0, 0.15f, 0.08f, 0, 1.0f, 1.0f, 1.0f); // Izquierda 
         dibujar(x + 0.08f, y - 0.02f, 0, 0, 0.15f, 0.08f, 0, 1.0f, 1.0f, 1.0f); // Derecha
@@ -214,7 +213,7 @@ public class Renderer {
 
     public void dibujarMontana(float x, float y, float tamano, float r, float g, float b) {
         float width = tamano * 1.5f;
-        float height = tamano; // Faltaba declarar la variable height que se usaba más abajo
+        float height = tamano;
 
         // Borde negro: un triángulo más grande centrado para que sobresalga en todas las puntas (incluyendo la cima)
         float borde = 0.04f;
@@ -243,6 +242,6 @@ public class Renderer {
         GL30.glDeleteVertexArrays(vao);
 
         GL20.glDeleteProgram(programa);
-        //
+        
     }
 }
