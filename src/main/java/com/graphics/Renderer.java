@@ -201,10 +201,10 @@ public class Renderer {
         float rot = time * 0.5f; // Velocidad de rotación constante
 
         // Rayos (4 líneas que cruzan el sol rotando)
-        dibujar(x, y, 0, 0, 0.35f, 0.03f, rot, rayR, rayG, rayB);
-        dibujar(x, y, 0, 0, 0.35f, 0.03f, rot + 1.5708f, rayR, rayG, rayB);
-        dibujar(x, y, 0, 0, 0.35f, 0.03f, rot + 0.7854f, rayR, rayG, rayB);
-        dibujar(x, y, 0, 0, 0.35f, 0.03f, rot - 0.7854f, rayR, rayG, rayB);
+        dibujar(x, y, 0, 0, 0.35f, 0.30f, rot, rayR, rayG, rayB);
+        dibujar(x, y, 0, 0, 0.35f, 0.30f, rot + 1.5708f, rayR, rayG, rayB);
+        dibujar(x, y, 0, 0, 0.35f, 0.30f, rot + 0.7854f, rayR, rayG, rayB);
+        dibujar(x, y, 0, 0, 0.35f, 0.30f, rot - 0.7854f, rayR, rayG, rayB);
 
         // Núcleo central (creado superponiendo dos cuadrados para formar un octágono)
         dibujar(x, y, 0, 0, 0.18f, 0.18f, 0, coreR, coreG, coreB);
