@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Universidad\2026-1\PROG. GRAFICA\FlappyBird\src\main\java\com\graphics\AppFlappyBird.java
 C:\Universidad\2026-1\PROG. GRAFICA\FlappyBird\src\main\java\com\graphics\InputManager.java
 C:\Universidad\2026-1\PROG. GRAFICA\FlappyBird\src\main\java\com\graphics\Interfas.java
@@ -5,3 +6,12 @@ C:\Universidad\2026-1\PROG. GRAFICA\FlappyBird\src\main\java\com\graphics\Pajaro
 C:\Universidad\2026-1\PROG. GRAFICA\FlappyBird\src\main\java\com\graphics\Renderer.java
 C:\Universidad\2026-1\PROG. GRAFICA\FlappyBird\src\main\java\com\graphics\SoundManager.java
 C:\Universidad\2026-1\PROG. GRAFICA\FlappyBird\src\main\java\com\graphics\Tuberia.java
+=======
+C:\Universidad\2026-1\Flappy\APPFLAPPYBIRD\src\main\java\com\graphics\AppFlappyBird.java
+C:\Universidad\2026-1\Flappy\APPFLAPPYBIRD\src\main\java\com\graphics\InputManager.java
+C:\Universidad\2026-1\Flappy\APPFLAPPYBIRD\src\main\java\com\graphics\Interfas.java
+C:\Universidad\2026-1\Flappy\APPFLAPPYBIRD\src\main\java\com\graphics\Pajaro.java
+C:\Universidad\2026-1\Flappy\APPFLAPPYBIRD\src\main\java\com\graphics\Renderer.java
+C:\Universidad\2026-1\Flappy\APPFLAPPYBIRD\src\main\java\com\graphics\SoundManager.java
+C:\Universidad\2026-1\Flappy\APPFLAPPYBIRD\src\main\java\com\graphics\Tuberia.java
+>>>>>>> 1d7415a33ff3be01e7eb52deaab636ffb0f36fc8

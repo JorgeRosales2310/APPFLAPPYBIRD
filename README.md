@@ -3,7 +3,7 @@ PROGRAMACION GRAFICA
 # Flappy Bird - Multijugador Geométrico
 
 ## Integrantes
-- [Tu Nombre y Apellido]
+- Jorge Rosales Jimenez
 
 ## Controles del Juego
 El juego admite dos jugadores simultáneos en la misma ventana:
