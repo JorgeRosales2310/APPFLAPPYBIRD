@@ -11,7 +11,7 @@ public class Interfas {
     }
 
     // Método principal para dibujar el HUD durante el juego
-    public void dibujarHUD(int score1, int score2, int nivel, float progresoNivel) {
+    public void dibujarHUD(int score1, int score2, int score3, int nivel, float progresoNivel) {
         // Colores base de los paneles superiores (Azul oscuro para el contraste con el cielo)
         float rPanel = 0.05f;
         float gPanel = 0.1f;
@@ -48,10 +48,18 @@ public class Interfas {
         dibujarCabezaPajaro(0.52f, 0.85f, 0.20f, 0.85f, 0.98f); 
         // Dibuja el puntaje actual del Jugador 2 en color azul claro
         dibujarNumero(score2, 0.75f, 0.85f, 1.2f, 0.2f, 0.85f, 0.98f); 
+
+        // Panel Jugador 3 (Derecha) 
+        // Dibuja el fondo del panel derecho
+        renderer.dibujar(0.65f, 0.65f, 0, 0, 0.38f, 0.15f, 0, rPanel, gPanel, bPanel);
+        // Dibuja el ícono del Pájaro Verde (Jugador 3) en el panel
+        dibujarCabezaPajaro(0.52f, 0.65f, 0.85f, 0.20f, 0.98f); 
+        // Dibuja el puntaje actual del Jugador 3 en color verde claro
+        dibujarNumero(score3, 0.75f, 0.65f, 1.2f, 0.85f, 0.20f, 0.98f); 
     }
 
     // Método para dibujar la pantalla de "Game Over" cuando ambos pierden
-    public void dibujarGameOver(int score1, int score2) {
+    public void dibujarGameOver(int score1, int score2, int score3) {
         // --- Fondo oscurecido (Overlay) ---
         // Dibuja un rectángulo negro semi-transparente (alfa = 0.3f) que cubre toda la pantalla
         renderer.dibujar(0, 0, 0, 0, 2.0f, 2.0f, 0, 0, 0, 0.3f);
@@ -74,6 +82,32 @@ public class Interfas {
         dibujarCabezaPajaro(-0.25f, -0.3f, 0.20f, 0.85f, 0.98f);
         // Muestra el puntaje final del Jugador 2
         dibujarNumero(score2, -0.05f, -0.3f, 1.5f, 0.2f, 0.85f, 0.98f);
+        // Dibuja el ícono del Jugador 3 (Morado) en la mitad inferior del panel
+        dibujarCabezaPajaro(-0.25f, -0.5f, 0.85f, 0.20f, 0.98f);
+        // Muestra el puntaje final del Jugador 3
+        dibujarNumero(score3, -0.05f, -0.5f, 1.5f, 0.85f, 0.20f, 0.98f);
+    }
+
+    // Método para dibujar la pantalla de "Terminado" cuando alguien llega a los puntos
+    public void dibujarTerminado(int score1, int score2, int score3) {
+        // --- Fondo oscurecido (Overlay) ---
+        renderer.dibujar(0, 0, 0, 0, 2.0f, 2.0f, 0, 0, 0, 0.3f);
+
+        // Panel principal (Marrón/Rojo oscuro)
+        renderer.dibujar(0, 0.0f, 0, 0, 1.5f, 1.0f, 0, 0.2f, 0.05f, 0.05f);
+
+        // Texto TERMINADO
+        dibujarTexto("TERMINADO", 0.0f, 0.40f, 1.0f, 0.9f, 0.8f, 0.2f); 
+
+        // Puntuaciones Finales
+        dibujarCabezaPajaro(-0.25f, -0.1f, 0.85f, 0.85f, 0.20f);
+        dibujarNumero(score1, -0.05f, -0.1f, 1.5f, 1.0f, 0.9f, 0.2f);
+
+        dibujarCabezaPajaro(-0.25f, -0.3f, 0.20f, 0.85f, 0.98f);
+        dibujarNumero(score2, -0.05f, -0.3f, 1.5f, 0.2f, 0.85f, 0.98f);
+
+        dibujarCabezaPajaro(-0.25f, -0.5f, 0.85f, 0.20f, 0.98f);
+        dibujarNumero(score3, -0.05f, -0.5f, 1.5f, 0.85f, 0.20f, 0.98f);
     }
 
     // Método auxiliar para dibujar un pájaro en miniatura (solo la cabeza)
@@ -90,7 +124,7 @@ public class Interfas {
 
     // Método que convierte un número entero a texto para dibujarlo dígito por dígito
     private void dibujarNumero(int numero, float x, float y, float tam, float r, float g, float b) {
-        // Convierte el número entero a cadena de texto (ej. 123 -> "123")
+        // Convierte el número entero a cadena de texto
         String numStr = String.valueOf(numero);
         float offset = 0; // Desplazamiento horizontal para cada nuevo dígito
         float espacio = 0.08f * tam; // Separación calculada en base al tamaño
@@ -100,7 +134,7 @@ public class Interfas {
 
         // Recorre cada carácter (dígito) del string
         for (int i = 0; i < numStr.length(); i++) {
-            // Convierte el carácter (ej. '5') a valor numérico entero (5)
+            // Convierte el carácter 
             int digito = numStr.charAt(i) - '0';
             // Llama al método que dibuja físicamente un solo dígito en pantalla
             dibujarDigito(digito, inicioX + offset, y, tam, r, g, b);
@@ -111,7 +145,7 @@ public class Interfas {
 
     // Método que dibuja un dígito específico simulando un display digital de 7 segmentos
     private void dibujarDigito(int digito, float x, float y, float tam, float r, float g, float b) {
-        // Definición de las proporciones de los segmentos en base al tamaño total (tam)
+        // Definición de las proporciones de los segmentos en base al tamaño total
         float w = 0.04f * tam; // Ancho del dígito
         float h = 0.05f * tam; // Mitad de la altura del dígito
         float t = 0.012f * tam; // Grosor (thickness) de cada línea/segmento
@@ -226,6 +260,25 @@ public class Interfas {
                 // Pierna simulada en diagonal usando bloques escalonados
                 renderer.dibujar(x, y, w/4, -h/4, t, h/2 + t, 0, r, g, b); // Mitad superior
                 renderer.dibujar(x, y, w/2, -h*0.75f, t, h/2 + t, 0, r, g, b); // Mitad inferior
+                break;
+            case 'T':
+                renderer.dibujar(x, y, 0, h, w + t, t, 0, r, g, b); // Techo
+                renderer.dibujar(x, y, 0, 0, t, h * 2 + t, 0, r, g, b); // Pilar central
+                break;
+            case 'I':
+                renderer.dibujar(x, y, 0, 0, t, h * 2 + t, 0, r, g, b); // Pilar central
+                break;
+            case 'N':
+                renderer.dibujar(x, y, -w/2, 0, t, h * 2 + t, 0, r, g, b); // Pata izq
+                renderer.dibujar(x, y, w/2, 0, t, h * 2 + t, 0, r, g, b); // Pata der
+                renderer.dibujar(x, y, -w/4, h/4, t, h/2 + t, 0, r, g, b); // Diagonal arriba
+                renderer.dibujar(x, y, w/4, -h/4, t, h/2 + t, 0, r, g, b); // Diagonal abajo
+                break;
+            case 'D':
+                renderer.dibujar(x, y, -w/2, 0, t, h * 2 + t, 0, r, g, b); // Espalda
+                renderer.dibujar(x, y, 0, h, w + t, t, 0, r, g, b); // Techo
+                renderer.dibujar(x, y, 0, -h, w + t, t, 0, r, g, b); // Suelo
+                renderer.dibujar(x, y, w/2, 0, t, h * 2 + t, 0, r, g, b); // Pared derecha
                 break;
         }
     }

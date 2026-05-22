@@ -127,7 +127,7 @@ public class Renderer {
         GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 6);
     }
 
-    // Método general para dibujar un triángulo (Ideal para montañas)
+    // Método general para dibujar un triángulo 
     public void dibujarTriangulo(float baseX, float baseY, float locX, float locY, float scaleX, float scaleY,
             float rot,
             float r, float g, float b) {
